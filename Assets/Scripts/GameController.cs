@@ -11,13 +11,30 @@ public class GameController : MonoBehaviour {
 	public float waveWait;
 	public float minSpin, maxSpin;
 	public GUIText scoreText;
+	public GUIText restartText;
+	public GUIText gameoverText;
 	private int score;
+	private bool restart;
+	private bool gameover;
 
 	// Use this for initialization
 	void Start () {
 		StartCoroutine( SpawnWaves ());
 		score = 0;
 		UpdateScore ();
+		gameover = false;
+		restart = false;
+
+		restartText.text = "";
+		gameoverText.text = "";
+	}
+
+	void Update() {
+		if (restart) {
+			if (Input.GetKeyDown (KeyCode.R)) {
+				Application.LoadLevel (Application.loadedLevel);
+			}
+		}
 	}
 
 	// Spawn a wave of asteroids
@@ -32,6 +49,12 @@ public class GameController : MonoBehaviour {
 				yield return new WaitForSeconds(spawnWait);
 			}
 			yield return new WaitForSeconds(waveWait);
+
+			if (gameover) {
+				restartText.text = "Press 'R' for Restart";
+				restart = true;
+				break;
+			}
 		}
 	}
 
@@ -43,5 +66,10 @@ public class GameController : MonoBehaviour {
 	public void IncrScore(int delta) {
 		score += delta;
 		UpdateScore ();
+	}
+
+	public void GameOver() {
+		gameoverText.text = "Game Over, Man!";
+		gameover = true;
 	}
 }
