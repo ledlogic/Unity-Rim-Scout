@@ -21,7 +21,24 @@ public class PlayerController : MonoBehaviour {
 	public Boundary boundary;
 	public float tiltMultiplier;
 
+	public GameObject plasmaBoltTemplate;
+	public Transform shotSpawn;
+
+	public float boltFireRate = 0.5f;
+	private float nextBoltFire = 0.0f;
+
+	void Update() {
+		if (Input.GetButton("Fire1") && Time.time > nextBoltFire) {
+			nextBoltFire = Time.time + boltFireRate;
+			Vector3 position = shotSpawn.position;
+			Quaternion rotation = new Quaternion(0,0,0,0);
+			Instantiate(plasmaBoltTemplate, position, rotation);
+		}
+	}
+
 	void FixedUpdate() {
+
+		// update movement
 		float moveHorizontal = Input.GetAxis("Horizontal") * burstSpeed;
 		float moveVertical = Input.GetAxis("Vertical") * burstSpeed;
 
@@ -36,8 +53,8 @@ public class PlayerController : MonoBehaviour {
 		);
 		rigidbody.position = position;
 
-		// rotate
-		rigidbody.rotation = Quaternion.Euler (0.0f, 0.0f, rigidbody.velocity.x * -tiltMultiplier);
+		// rotate along longitudinal axis
+		rigidbody.rotation = Quaternion.Euler(0.0f, 0.0f, rigidbody.velocity.x * -tiltMultiplier);
 	}
 
 }
