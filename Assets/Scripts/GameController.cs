@@ -10,12 +10,17 @@ public class GameController : MonoBehaviour {
 	public float startWait;
 	public float waveWait;
 	public float minSpin, maxSpin;
+	public GUIText scoreText;
+	private int score;
 
 	// Use this for initialization
 	void Start () {
 		StartCoroutine( SpawnWaves ());
+		score = 0;
+		UpdateScore ();
 	}
 
+	// Spawn a wave of asteroids
 	IEnumerator SpawnWaves () {
 		yield return new WaitForSeconds (startWait);
 		while(true) {
@@ -30,4 +35,13 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
+	// Update the score viewport display
+	void UpdateScore() {
+		scoreText.text = "Score:\n" + score.ToString ();
+	}
+
+	public void IncrScore(int delta) {
+		score += delta;
+		UpdateScore ();
+	}
 }
