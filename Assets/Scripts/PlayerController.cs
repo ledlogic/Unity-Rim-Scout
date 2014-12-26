@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour {
 			Vector3 position = shotSpawn.position;
 			Quaternion rotation = Quaternion.identity;
 			Instantiate(plasmaBoltTemplate, position, rotation);
+			audio.Play ();
 		}
 	}
 
