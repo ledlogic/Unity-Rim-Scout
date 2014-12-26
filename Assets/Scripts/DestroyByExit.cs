@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SpriteBoundary : MonoBehaviour {
+public class DestroyByExit : MonoBehaviour {
 
 	void OnTriggerExit(Collider other) {
 		Destroy(other.gameObject);
