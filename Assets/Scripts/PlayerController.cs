@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour {
 		if (Input.GetButton("Fire1") && Time.time > nextBoltFire) {
 			nextBoltFire = Time.time + boltFireRate;
 			Vector3 position = shotSpawn.position;
-			Quaternion rotation = new Quaternion(0,0,0,0);
+			Quaternion rotation = Quaternion.identity;
 			Instantiate(plasmaBoltTemplate, position, rotation);
 		}
 	}
@@ -47,9 +47,7 @@ public class PlayerController : MonoBehaviour {
 
 		// check position
 		Vector3 position = new Vector3(
-			boundary.clampX(rigidbody.position.x),
-		    0.0f,
-			boundary.clampZ(rigidbody.position.z)
+			boundary.clampX(rigidbody.position.x), 0.0f, boundary.clampZ(rigidbody.position.z)
 		);
 		rigidbody.position = position;
 

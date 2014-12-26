@@ -12,11 +12,11 @@ public class DestroyByContact : MonoBehaviour {
 		}
 
 		// create asteroid explosion
-		Instantiate (asteroidExplosionTemplate, transform.position, transform.rotation);
+		GameObject asteroidExplosion = Instantiate (asteroidExplosionTemplate, transform.position, transform.rotation) as GameObject;
 
 		// also create player explosion
 		if (other.tag == "Player") {
-			Instantiate(playerExplosionTemplate, other.transform.position, other.transform.rotation);
+			GameObject playerExplosion = Instantiate(playerExplosionTemplate, other.transform.position, other.transform.rotation) as GameObject;
 		}
 
 		Destroy(other.gameObject);
